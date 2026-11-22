@@ -6,10 +6,15 @@ import cors from 'cors';
 import { userRouter } from './routes/userRoute.js';
 import cookieParser from 'cookie-parser';
 const app = express();
+import { Server } from 'socket.io';
+import { createServer } from 'http';
 
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
+
+export const server = createServer(app);
+export const io = new Server(server)
 
 app.use('/api/v1/user', userRouter);
 
@@ -25,7 +30,7 @@ async function connectToDB(){
         
         await mongoose.connect(mongo_uri);
         
-        app.listen(port, () => {
+        server.listen(port, () => {
             console.log("Server is now connected to database and listening to PORT", port);
         })
     } catch(error){

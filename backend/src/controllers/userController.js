@@ -104,3 +104,24 @@ export async function logout(req, res) {
         return res.status(500).json({ message: "Internal server error, failed to logout" })
     }
 }
+
+export async function getUser(req, res) {
+
+    try {
+
+        const user = await userModel.findOne({
+            _id: req.userId
+        })
+
+        res.status(200).json({
+            user: {
+                username: user.username,
+                email: user.email
+            },
+            success: true
+        });
+    } catch (err) {
+        return res.status(500).json({ message: "Internal server error, failed to find the user", success: false })
+    }
+
+}

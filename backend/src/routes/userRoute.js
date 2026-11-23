@@ -7,4 +7,4 @@ export const userRouter = Router();
 userRouter.post("/register", createNewAccount);
 userRouter.post("/login", login);
 userRouter.post("/logout", verifyAuth, logout);
-userRouter.get("/user", verifyAuth, getUser)
+userRouter.get("/user", verifyAuth, getUser);
